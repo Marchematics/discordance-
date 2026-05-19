@@ -70,11 +70,13 @@ matched WBM structure. This clears the local technical scorer smoke gate, but
 Route B still needs public/archive provenance for that model archive and a
 frozen MP-vs-Alex denominator before the one-shot outcome can be claimed.
 
-Provenance decision: the local archive is currently classified as
-`manual/local archive supplied by user`. It is technically usable but not yet
-public/citable/reproducible enough for primary manuscript evidence. Until the
-exact zip is archived or a public download is restored, Route B remains blocked
-for primary evidence and the local archive is internal-diagnostic only.
+Provenance decision update: AtomGPTLab provides a public registry and
+documentation for the exact `v12.2.2024_dft_3d_307k` checkpoint. Therefore the
+public registry gate is now PASS. The clean-download hash-match gate remains
+PENDING because the registry URL still returns HTTP 403 in this environment.
+Until the registry download reproduces the local archive hash, or the exact zip
+is archived through a reviewable mirror, Route B remains pending and the local
+archive is internal-diagnostic only.
 
 A frozen Matbench Discovery / WBM ALIGNN-FF prediction table is available:
 

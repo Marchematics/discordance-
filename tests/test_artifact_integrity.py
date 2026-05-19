@@ -174,19 +174,38 @@ def test_route_b_alignn_ff_provenance_blocks_primary_claim_until_public_source()
     assert archive["value"] == "ccc5c71e44e0213f8f5261a5e1df43df03129a4ec661a31c7a880cbf48b4e7b5"
     tech = checklist[checklist["check_item"].eq("si_smoke")].iloc[0]
     assert tech["status"] == "pass"
-    source = checklist[checklist["check_item"].eq("acquisition_source")].iloc[0]
-    assert source["status"] == "fail_pending_public_provenance"
 
     decision = pd.read_csv(MILESTONE / "table_route_b_alignn_ff_eligibility_decision.csv")
+    registry = decision[decision["gate"].eq("public_registry_gate")].iloc[0]
+    assert registry["status"] == "pass"
+    clean = decision[decision["gate"].eq("clean_download_hash_match")].iloc[0]
+    assert clean["status"] == "pending_blocked_403"
     primary = decision[decision["gate"].eq("route_b_primary_evidence_gate")].iloc[0]
-    assert primary["status"] == "fail"
+    assert primary["status"] == "pending_hash_match"
     assert "do not run one-shot Route B primary claim yet" in primary["decision"]
 
     note = (MILESTONE / "ROUTE_B_ALIGNN_FF_PROVENANCE_QUALIFICATION.md").read_text(
         encoding="utf-8"
     )
-    assert "manual/local archive supplied by user" in note
-    assert "internal diagnostic scoring" in note
+    assert "public registry entry exists" in note
+    assert "PENDING_HASH_MATCH" in note
+
+
+def test_route_b_public_provenance_unlock_requires_clean_hash_match() -> None:
+    unlock = pd.read_csv(MILESTONE / "table_route_b_alignn_ff_public_provenance_unlock.csv")
+    registry = unlock[unlock["gate"].eq("public_registry")].iloc[0]
+    assert registry["status"] == "pass"
+    clean = unlock[unlock["gate"].eq("clean_download_hash_match")].iloc[0]
+    assert clean["status"] == "pending_blocked_403"
+    primary = unlock[unlock["gate"].eq("route_b_primary_evidence_gate")].iloc[0]
+    assert primary["status"] == "pending_hash_match"
+
+    text = (MILESTONE / "ROUTE_B_ALIGNN_FF_PUBLIC_PROVENANCE_UNLOCK.md").read_text(
+        encoding="utf-8"
+    )
+    assert "public registry gate: PASS" in text
+    assert "clean download hash match: PENDING" in text
+    assert "Route B one-shot outcome: unconsumed" in text
 
 
 def test_manifest_exists() -> None:

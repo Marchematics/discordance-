@@ -74,9 +74,11 @@ returned HTTP 403 here. A later user-provided local
 matched-structure CPU smoke tests, so the local technical scorer gate is now
 partially repaired. Route B still requires frozen MP-vs-Alex denominator export
 and public/archive provenance for the local ALIGNN-FF model before any primary
-claim. The provenance qualification currently marks the archive as
-`fail_pending_public_archive_or_citable_source`, so it may be used only for
-internal diagnostics. The endpoint is not relaxed to CHGNet/MACE-only.
+claim. AtomGPTLab now provides a public registry entry for the exact checkpoint,
+so the provenance status is upgraded to
+`PENDING_CLEAN_DOWNLOAD_HASH_MATCH`: public registry gate passed, but clean
+download currently returns HTTP 403 in this environment. The endpoint is not
+relaxed to CHGNet/MACE-only.
 
 ## Route C Alternative Frontier Panel
 
@@ -122,6 +124,7 @@ outputs/milestones/materials_label_discordance_preregistration/
   ROUTE_B_ONE_SHOT_RESCUE_PROTOCOL.md
   ROUTE_B_READINESS_CLOSEOUT.md
   ROUTE_B_ALIGNN_FF_PROVENANCE_QUALIFICATION.md
+  ROUTE_B_ALIGNN_FF_PUBLIC_PROVENANCE_UNLOCK.md
   ROUTE_C_ALTERNATIVE_FRONTIER_PANEL_PROTOCOL.md
   ROUTE_C_EXISTING_PROBE_EXPERIMENT.md
   ALIGNN_FF_ATOMGPTLAB_SOURCE_NOTE.md
@@ -135,6 +138,7 @@ outputs/milestones/materials_label_discordance_preregistration/
   table_alignn_ff_smoke_tests.csv
   table_route_b_alignn_ff_provenance_checklist.csv
   table_route_b_alignn_ff_eligibility_decision.csv
+  table_route_b_alignn_ff_public_provenance_unlock.csv
   table_route_c_frontier_panel_protocol.csv
   table_route_c_go_no_go_gate.csv
   table_route_c_existing_probe_model_scores.csv

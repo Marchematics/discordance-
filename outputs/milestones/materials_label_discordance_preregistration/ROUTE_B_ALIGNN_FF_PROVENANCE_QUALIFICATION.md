@@ -102,24 +102,27 @@ Known facts:
 Acquisition source classification:
 
 ```text
-manual/local archive supplied by user
-public source identity plausible but not independently retrievable in this environment
+public registry entry exists via atomgptlab/alignn
+local archive supplied by user
+clean download hash match pending because registry URL returns HTTP 403 in this environment
 ```
 
 ## Eligibility Decision
 
 ```text
 technical scorer eligibility: PASS
-public reproducibility eligibility: FAIL_PENDING_PUBLIC_ARCHIVE_OR_CITABLE_SOURCE
-Route B primary evidence eligibility: FAIL
+public registry eligibility: PASS
+clean download hash match: PENDING_BLOCKED_403
+Route B primary evidence eligibility: PENDING_HASH_MATCH
 ```
 
 Reason:
 
-The archive is a valid local model artifact and the scorer works. However, the
-source is not yet public/citable/reproducible enough for another user to obtain
-or verify the same artifact. Therefore Route B cannot yet use this local archive
-for primary manuscript evidence.
+The archive is a valid local model artifact and the scorer works. A public
+registry and documentation now identify the same checkpoint. However, the
+registry download does not yet reproduce the local archive in this environment
+because the Figshare URL returns `HTTP 403`. Therefore Route B cannot yet use
+this local archive for primary manuscript evidence.
 
 ## Required Action To Convert To PASS
 
