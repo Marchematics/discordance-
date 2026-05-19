@@ -48,3 +48,7 @@ StructureMatcher matches, `n_common >= 200`, and the same ALIGNN-FF / CHGNet /
 MACE-MP stable-class F1 endpoint. The line reopens only if both discordance is
 at least 0.40 and the frontier ranking flips. Otherwise the NMI line is
 permanently closed.
+
+Current status: Route B is blocked before outcome generation because the
+same-denominator primary model set cannot yet be assembled with ALIGNN-FF.
+CHGNet/MACE-only is not an allowed substitute.

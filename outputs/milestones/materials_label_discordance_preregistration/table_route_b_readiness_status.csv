@@ -1,0 +1,7 @@
+component,requirement,status,details,route_b_implication
+Materials Project,API-derived public records,pass,MP smoke query passed for mp-149,source_A_ready_for_snapshot_export
+Alexandria/alex-mp,independently downloaded local snapshot,pass,local alex_mp_20.zip available,source_B_ready_for_snapshot_export
+CHGNet,reproducible same-denominator scorer,pass,CHGNet local scorer previously generated scores for 270 exact-match structures,model_available
+MACE-MP,reproducible same-denominator scorer,pass,MACE-MP local scorer previously generated scores for 270 exact-match structures,model_available
+ALIGNN-FF,reproducible same-denominator scorer,fail,alignn.ff default_path attempted download v12.2.2024_dft_3d_307k but received non-zip artifact causing BadZipFile,primary_model_set_incomplete_do_not_run_or_claim_route_B_primary_endpoint
+Route B primary endpoint,ALIGNN-FF / CHGNet / MACE-MP same denominator,blocked,ALIGNN-FF required primary scorer unavailable under current environment,NMI_discordance_line_remains_closed_until_ALIGNN_FF_scorer_is_legally_available

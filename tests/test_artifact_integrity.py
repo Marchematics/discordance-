@@ -58,6 +58,17 @@ def test_route_b_is_one_shot_and_keeps_endpoint_frozen() -> None:
     assert "stable-F1 ranking flip" in reopen["requirement"]
 
 
+def test_route_b_readiness_blocks_endpoint_without_alignn_ff() -> None:
+    status = pd.read_csv(MILESTONE / "table_route_b_readiness_status.csv")
+    alignn = status[status["component"].eq("ALIGNN-FF")].iloc[0]
+    assert alignn["status"] == "fail"
+    assert "BadZipFile" in alignn["details"]
+
+    endpoint = status[status["component"].eq("Route B primary endpoint")].iloc[0]
+    assert endpoint["status"] == "blocked"
+    assert "ALIGNN" in endpoint["details"]
+
+
 def test_manifest_exists() -> None:
     assert (MILESTONE / "MANIFEST_SHA256.txt").exists()
     assert (ROOT / "MANIFEST_SHA256.txt").exists()

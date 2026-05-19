@@ -63,6 +63,11 @@ AND frontier stable-F1 ranking flip exists
 If the full snapshot still lacks the ranking flip, the NMI discordance line is
 permanently closed.
 
+Current readiness: source access is available enough to attempt a future
+snapshot export, but the strict primary model set is blocked because ALIGNN-FF
+is not currently executable as a same-denominator scorer. The endpoint is not
+relaxed to CHGNet/MACE-only.
+
 ## Claim Boundaries
 
 Allowed:
@@ -86,6 +91,7 @@ Forbidden:
 outputs/milestones/materials_label_discordance_preregistration/
   DATA_ACCESS_GO_NO_GO.md
   ROUTE_B_ONE_SHOT_RESCUE_PROTOCOL.md
+  ROUTE_B_READINESS_CLOSEOUT.md
   DISCORDANCE_STUDY_PREREGISTRATION.md
   MATERIALS_LABEL_DISCORDANCE_EXPERIMENT_CLOSEOUT.md
   protocol_discordance_study.yaml
