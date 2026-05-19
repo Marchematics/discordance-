@@ -1,0 +1,4 @@
+gate,status,decision,required_next_action
+technical_scorer_gate,pass,local explicit-path ALIGNN-FF scorer works on CPU smoke tests,can be used for internal diagnostic scoring
+public_reproducibility_gate,fail_pending_public_archive_or_citable_source,local archive source is manual/user-supplied and not independently retrievable here,archive exact zip or restore official download before primary evidence
+route_b_primary_evidence_gate,fail,do not run one-shot Route B primary claim yet,freeze MP snapshot and model provenance before full rescue

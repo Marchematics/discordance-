@@ -168,6 +168,27 @@ def test_route_c_existing_probe_completed_but_not_full_primary() -> None:
     assert "not full MP-vs-Alex Route C primary" in summary["claim_scope"]
 
 
+def test_route_b_alignn_ff_provenance_blocks_primary_claim_until_public_source() -> None:
+    checklist = pd.read_csv(MILESTONE / "table_route_b_alignn_ff_provenance_checklist.csv")
+    archive = checklist[checklist["check_item"].eq("archive_sha256")].iloc[0]
+    assert archive["value"] == "ccc5c71e44e0213f8f5261a5e1df43df03129a4ec661a31c7a880cbf48b4e7b5"
+    tech = checklist[checklist["check_item"].eq("si_smoke")].iloc[0]
+    assert tech["status"] == "pass"
+    source = checklist[checklist["check_item"].eq("acquisition_source")].iloc[0]
+    assert source["status"] == "fail_pending_public_provenance"
+
+    decision = pd.read_csv(MILESTONE / "table_route_b_alignn_ff_eligibility_decision.csv")
+    primary = decision[decision["gate"].eq("route_b_primary_evidence_gate")].iloc[0]
+    assert primary["status"] == "fail"
+    assert "do not run one-shot Route B primary claim yet" in primary["decision"]
+
+    note = (MILESTONE / "ROUTE_B_ALIGNN_FF_PROVENANCE_QUALIFICATION.md").read_text(
+        encoding="utf-8"
+    )
+    assert "manual/local archive supplied by user" in note
+    assert "internal diagnostic scoring" in note
+
+
 def test_manifest_exists() -> None:
     assert (MILESTONE / "MANIFEST_SHA256.txt").exists()
     assert (ROOT / "MANIFEST_SHA256.txt").exists()
