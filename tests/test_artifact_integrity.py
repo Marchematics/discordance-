@@ -116,6 +116,29 @@ def test_alignn_ff_pinned_downloader_repair_does_not_clear_gate() -> None:
     assert "does not clear the Route B gate" in repair
 
 
+def test_route_c_is_separate_protocol_not_route_b_modification() -> None:
+    protocol = (MILESTONE / "ROUTE_C_ALTERNATIVE_FRONTIER_PANEL_PROTOCOL.md").read_text(
+        encoding="utf-8"
+    )
+    assert "Route B remains unconsumed and blocked" in protocol
+    assert "Route C is not a continuation of Route B" in protocol
+    assert "CHGNet" in protocol
+    assert "MACE-MP" in protocol
+    assert "SevenNet / MatterSim / Orb / MatGL / M3GNet" in protocol
+    assert "stable-class F1" in protocol
+
+    panel = pd.read_csv(MILESTONE / "table_route_c_frontier_panel_protocol.csv")
+    assert {"CHGNet", "MACE-MP"}.issubset(set(panel["model"]))
+    alignn = panel[panel["model"].eq("ALIGNN-FF")].iloc[0]
+    assert alignn["route_c_role"] == "excluded_from_route_c_due_to_readiness_block"
+
+    gates = pd.read_csv(MILESTONE / "table_route_c_go_no_go_gate.csv")
+    independence = gates[gates["gate"].eq("route_c_independence")].iloc[0]
+    assert independence["current_status"] == "pass_protocol_frozen"
+    ranking = gates[gates["gate"].eq("ranking_flip_gate")].iloc[0]
+    assert "abs F1 delta >= 0.05" in ranking["requirement"]
+
+
 def test_manifest_exists() -> None:
     assert (MILESTONE / "MANIFEST_SHA256.txt").exists()
     assert (ROOT / "MANIFEST_SHA256.txt").exists()

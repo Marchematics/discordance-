@@ -43,6 +43,31 @@ week_one_gates:
     eligibility_rule: same_exact_match_denominator_and_frozen_or_reproducible_predictions
     primary_common_denominator_floor: 200
     primary_flip_rule: top_model_changes_or_adjacent_ordering_flips_with_abs_F1_delta_ge_0.05
+route_b:
+  status: blocked_unconsumed
+  blocker: ALIGNN_FF_arbitrary_structure_scorer_not_reproducibly_executable
+  endpoint_change_allowed: false
+route_c:
+  status: protocol_only_no_outcomes_inspected
+  rationale: alternative_frontier_panel_if_ALIGNN_FF_remains_unavailable
+  boundary: Route_C_is_not_Route_B_and_does_not_consume_Route_B_one_shot
+  primary_required_models:
+    - CHGNet
+    - MACE-MP
+  candidate_third_model_choose_before_outcomes:
+    - SevenNet
+    - MatterSim
+    - Orb
+    - MatGL
+    - M3GNet
+  fallback_if_no_third_model: CHGNet_MACE_only_reduced_panel_diagnostic_not_primary
+  endpoint:
+    primary_metric: stable_class_F1
+    coprimary_metric: balanced_accuracy
+    threshold_rule: top_max_5_percent_or_20_candidates_by_frozen_score
+    denominator_floor: 200
+    discordance_gate: discordance_ge_0.40
+    ranking_flip_gate: top_model_or_adjacent_ordering_flip_with_abs_F1_delta_ge_0.05
 matching:
   primary: exact_or_high_confidence_structure_match
   formula_only: tag_only_never_primary

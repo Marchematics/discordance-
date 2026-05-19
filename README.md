@@ -73,6 +73,22 @@ returned HTTP 403 here. A frozen WBM/Matbench ALIGNN-FF prediction table is
 available and checksummed, but it does not score arbitrary MP-vs-Alex snapshot
 structures. The endpoint is not relaxed to CHGNet/MACE-only.
 
+## Route C Alternative Frontier Panel
+
+If ALIGNN-FF remains unavailable as a reproducible arbitrary-structure scorer,
+the only allowed alternative is a separate Route C protocol, not a modification
+of Route B:
+
+```text
+CHGNet
+MACE-MP
+one frozen third model chosen before outcomes:
+SevenNet / MatterSim / Orb / MatGL / M3GNet
+```
+
+Route C is currently `protocol_only`; no Route C ranking outcomes have been
+inspected. Route B remains blocked and unconsumed.
+
 ## Claim Boundaries
 
 Allowed:
@@ -97,6 +113,7 @@ outputs/milestones/materials_label_discordance_preregistration/
   DATA_ACCESS_GO_NO_GO.md
   ROUTE_B_ONE_SHOT_RESCUE_PROTOCOL.md
   ROUTE_B_READINESS_CLOSEOUT.md
+  ROUTE_C_ALTERNATIVE_FRONTIER_PANEL_PROTOCOL.md
   ALIGNN_FF_READINESS_FIX_ATTEMPT.md
   ALIGNN_FF_PINNED_DOWNLOADER_REPAIR.md
   DISCORDANCE_STUDY_PREREGISTRATION.md
@@ -105,6 +122,8 @@ outputs/milestones/materials_label_discordance_preregistration/
   table_alignn_ff_readiness_attempts.csv
   table_alignn_ff_download_integrity.csv
   table_alignn_ff_smoke_tests.csv
+  table_route_c_frontier_panel_protocol.csv
+  table_route_c_go_no_go_gate.csv
   table_data_access_smoke.csv
   table_minimal_discordance_probe.csv
   table_frontier_model_scores.csv

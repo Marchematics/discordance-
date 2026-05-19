@@ -77,3 +77,24 @@ diagnostics, but it is not an arbitrary-structure scorer for a full MP-vs-Alex
 snapshot. Route B remains blocked unless a legal ALIGNN-FF scorer becomes
 available or the preregistered denominator can be satisfied by frozen public
 ALIGNN-FF predictions without changing the protocol.
+
+## Route C: Alternative Frontier Panel
+
+Status: protocol-only, no outcomes inspected.
+
+Route C is allowed only as a separate protocol if ALIGNN-FF remains unavailable.
+It is not a modification of Route B, and Route B remains blocked and
+unconsumed.
+
+Frozen Route C candidate panel:
+
+| Role | Models |
+|---|---|
+| required | CHGNet, MACE-MP |
+| choose one before outcomes | SevenNet, MatterSim, Orb, MatGL, or M3GNet |
+
+The NMI line reopens under Route C only if the same exact/high-confidence
+denominator has `n_common >= 200`, binary exact-stability discordance remains
+at least 0.40, and the alternative-frontier stable-class F1 ranking flips with
+the preregistered effect-size rule. CHGNet/MACE-only results are reduced-panel
+diagnostics, not full primary frontier-panel evidence.
