@@ -215,6 +215,19 @@ discordance amplification across selection fractions.
 
 ## Claim Boundaries
 
+## Related-Work Positioning
+
+The experimental package is complete enough for the current paper scope; the
+next manuscript-facing step is literature positioning rather than another large
+benchmark run. `docs/RELATED_WORK_POSITIONING.md` adds ready-to-use paragraphs
+that place the result against JARVIS-Leaderboard, Matbench Discovery,
+foundation MLIPs, stable-materials prediction and generative materials design.
+`docs/bibliography_additions.bib` provides the corresponding citation entries.
+
+Boundary: these references motivate the benchmark-reliability question. They
+do not introduce new GRACE, MatterGen, SevenNet, Orb, MatterSim or full
+Matbench Discovery experiments.
+
 Allowed:
 
 - “The existing WBM-vs-alex exact-structure probe shows high binary

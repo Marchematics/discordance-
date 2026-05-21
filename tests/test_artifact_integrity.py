@@ -27,6 +27,38 @@ def test_no_secret_material_is_committed() -> None:
     assert credential_like == []
 
 
+def test_related_work_positioning_is_context_not_new_experiment() -> None:
+    text = (ROOT / "docs" / "RELATED_WORK_POSITIONING.md").read_text(encoding="utf-8")
+    bib = (ROOT / "docs" / "bibliography_additions.bib").read_text(encoding="utf-8")
+
+    for required in [
+        "JARVIS-Leaderboard",
+        "Matbench Discovery",
+        "MACE",
+        "MP-ALOE",
+        "MatterGen",
+        "GRACE",
+        "Do not claim a new GRACE",
+        "Do not claim prospective materials discovery",
+    ]:
+        assert required in text
+
+    for key in [
+        "choudhary2024jarvis_leaderboard",
+        "riebesell2025matbench_discovery",
+        "batatia2025foundation_mace",
+        "deng2025systematic_softening",
+        "kuner2025mp_aloe",
+        "lysogorskiy2026grace",
+        "zou2025thermodynamic_stability",
+        "zeni2025mattergen",
+    ]:
+        assert key in bib
+
+    assert "not a new training-data experiment here" in text
+    assert "not evaluated as new experimental rows here" in text
+
+
 def test_full_mp_alex_43984_denominator_is_completed_and_scoped() -> None:
     summary = pd.read_csv(FULL_MILESTONE / "table_full_mp_alex_denominator_summary.csv").iloc[0]
     assert int(summary["alex_mp_identifier_rows"]) == 43_984
