@@ -10,6 +10,7 @@ FULL_MILESTONE = ROOT / "outputs" / "milestones" / "materials_label_discordance_
 ENHANCEMENT = ROOT / "outputs" / "milestones" / "benchmark_reliability_enhancement"
 COMMON_HULL = ROOT / "outputs" / "milestones" / "common_hull_mechanism_subset"
 BENCHMARK_IMPACT = ROOT / "outputs" / "milestones" / "benchmark_impact_label_source_choice"
+MODEL_SENSITIVITY = ROOT / "outputs" / "milestones" / "model_facing_benchmark_sensitivity_check"
 
 
 def test_no_secret_material_is_committed() -> None:
@@ -172,6 +173,35 @@ def test_benchmark_impact_label_source_choice_is_completed_but_not_model_leaderb
     )
     assert "does not claim a full-denominator ML model leaderboard" in closeout
     assert "source-label transfer limits" in closeout
+
+
+def test_model_facing_sensitivity_check_has_real_model_large_subset_and_boundaries() -> None:
+    manifest = pd.read_csv(MODEL_SENSITIVITY / "table_chgnet_scored_subset_manifest.csv").iloc[0]
+    assert manifest["model"] == "CHGNet"
+    assert int(manifest["n_scored"]) == 5_000
+    assert manifest["device"] in {"cuda", "cpu"}
+    assert manifest["claim_scope"] == "model_facing_sensitivity_check_not_leaderboard"
+
+    scores = pd.read_csv(MODEL_SENSITIVITY / "candidate_scores_chgnet_5000.csv")
+    assert len(scores) == 5_000
+    assert scores["score"].notna().all()
+    assert set(["mp_stable", "alex_stable", "source_agreement"]).issubset(scores.columns)
+
+    pk_shift = pd.read_csv(MODEL_SENSITIVITY / "table_precision_at_k_metric_shift.csv")
+    assert set([100, 300, 500, 1000, 2000]).issubset(set(pk_shift["K"]))
+    k300 = pk_shift[pk_shift["K"].eq(300)].iloc[0]
+    assert abs(float(k300["metric_shift_mp_minus_alex"])) >= 0.02
+    assert (pk_shift["claim_scope"] == "model_facing_sensitivity_check_not_leaderboard").all()
+
+    metrics = pd.read_csv(MODEL_SENSITIVITY / "table_model_metric_source_sensitivity.csv")
+    assert {"mp_stable", "alex_stable"}.issubset(set(metrics["label_source"]))
+    assert (metrics["claim_scope"] == "model_facing_sensitivity_check_not_leaderboard").all()
+
+    closeout = (MODEL_SENSITIVITY / "MODEL_FACING_BENCHMARK_SENSITIVITY_CHECK.md").read_text(
+        encoding="utf-8"
+    )
+    assert "not a leaderboard" in closeout
+    assert "one real model ranking" in closeout
 
 
 def test_minimal_discordance_probe_passes_launch_signal() -> None:

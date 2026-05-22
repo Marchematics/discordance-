@@ -297,6 +297,41 @@ better, source-native stability labels impose a measurable benchmark
 uncertainty band. The milestone does not claim that CHGNet, MACE-MP,
 ALIGNN-FF, GRACE or any other model ranking flips on the full denominator.
 
+## Model-Facing Sensitivity Check
+
+`outputs/milestones/model_facing_benchmark_sensitivity_check/` adds the minimal
+real-model diagnostic requested for the paper: one true CHGNet ranking on a
+deterministic 5,000-structure subset of the 43,139 strict MP-Alex denominator.
+The score is a CHGNet formation-energy proxy built from CHGNet structure
+energies and MP elemental references.
+
+```text
+model: CHGNet
+scored denominator: 5,000 strict MP-Alex matched structures
+score: negative CHGNet formation-energy proxy
+device: CUDA
+
+precision@100:
+  MP labels: 0.370
+  Alexandria labels: 0.340
+  MP-minus-Alex shift: +0.030
+
+precision@300:
+  MP labels: 0.333
+  Alexandria labels: 0.290
+  MP-minus-Alex shift: +0.043
+
+AUROC:
+  MP labels: 0.454
+  Alexandria labels: 0.466
+```
+
+This is intentionally not a leaderboard: CHGNet is used only to show that the
+label-source effect is visible under a real model ranking on a large subset,
+not only under source-native oracle labels. The diagnostic should be described
+as a model-facing sensitivity check, not as evidence that CHGNet is a strong
+predictor on this denominator.
+
 Allowed:
 
 - “The existing WBM-vs-alex exact-structure probe shows high binary
