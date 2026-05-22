@@ -269,6 +269,34 @@ cannot be obtained by a lightweight public-table join. A paper-facing mechanism
 claim would require dedicated common-hull reconstruction with broader
 competitor coverage and unclipped/source-compatible formation energies.
 
+## Benchmark Impact of Label-Source Choice
+
+`outputs/milestones/benchmark_impact_label_source_choice/` adds a completed
+benchmark-impact result on the full 43,139 strict MP-Alex denominator. This is
+not a full-denominator ML leaderboard; it is a source-label transfer and
+source-native ranking reference that quantifies what label-source choice alone
+can do to benchmark conclusions.
+
+```text
+MP source-native perfect labeler evaluated by Alexandria:
+  F1 = 0.8396, accuracy = 0.8827
+  F1 drop from source-native self-evaluation = -0.1604
+
+MP-stable candidates rejected by Alexandria:
+  3,628 / 16,872 = 0.2150
+
+Alexandria-stable candidates rejected by MP:
+  1,432 / 14,676 = 0.0976
+
+source-agreement-only denominator retained:
+  38,079 / 43,139 = 0.8827
+```
+
+The paper-facing claim is therefore: even before asking which ML model is
+better, source-native stability labels impose a measurable benchmark
+uncertainty band. The milestone does not claim that CHGNet, MACE-MP,
+ALIGNN-FF, GRACE or any other model ranking flips on the full denominator.
+
 Allowed:
 
 - “The existing WBM-vs-alex exact-structure probe shows high binary

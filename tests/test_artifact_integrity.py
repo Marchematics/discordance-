@@ -9,6 +9,7 @@ MILESTONE = ROOT / "outputs" / "milestones" / "materials_label_discordance_prere
 FULL_MILESTONE = ROOT / "outputs" / "milestones" / "materials_label_discordance_full_mp_alex_43984"
 ENHANCEMENT = ROOT / "outputs" / "milestones" / "benchmark_reliability_enhancement"
 COMMON_HULL = ROOT / "outputs" / "milestones" / "common_hull_mechanism_subset"
+BENCHMARK_IMPACT = ROOT / "outputs" / "milestones" / "benchmark_impact_label_source_choice"
 
 
 def test_no_secret_material_is_committed() -> None:
@@ -139,6 +140,38 @@ def test_common_composition_hull_proxy_is_coverage_boundary_not_mechanism_claim(
     assert "coverage-boundary result" in closeout
     assert "not a positive mechanism-decomposition result" in closeout
     assert "common-composition competitor-hull proxy" in closeout
+
+
+def test_benchmark_impact_label_source_choice_is_completed_but_not_model_leaderboard() -> None:
+    confusion = pd.read_csv(BENCHMARK_IMPACT / "table_label_confusion_matrix_full_denominator.csv")
+    cells = dict(zip(confusion["label_cell"], confusion["n"]))
+    assert int(cells["both_stable"]) == 13_244
+    assert int(cells["mp_stable_alex_unstable"]) == 3_628
+    assert int(cells["mp_unstable_alex_stable"]) == 1_432
+    assert int(cells["both_unstable"]) == 24_835
+    assert sum(int(v) for v in cells.values()) == 43_139
+
+    transfer = pd.read_csv(BENCHMARK_IMPACT / "table_perfect_source_labeler_cross_evaluation.csv")
+    mp_cross = transfer[
+        transfer["predictor"].eq("perfect_MP_source_labeler")
+        & transfer["evaluation_label_source"].eq("Alexandria_source_native_truth")
+    ].iloc[0]
+    assert 0.83 <= float(mp_cross["f1"]) <= 0.85
+    assert float(mp_cross["delta_from_source_native_f1"]) < -0.15
+
+    interpretation = pd.read_csv(BENCHMARK_IMPACT / "table_metric_shift_interpretation.csv")
+    burden = interpretation[interpretation["impact_statement"].eq("binary_label_disagreement_burden")].iloc[0]
+    assert 0.11 <= float(burden["value"]) <= 0.12
+    mp_loss = interpretation[
+        interpretation["impact_statement"].eq("MP_stable_candidates_rejected_by_Alexandria")
+    ].iloc[0]
+    assert 0.21 <= float(mp_loss["value"]) <= 0.22
+
+    closeout = (BENCHMARK_IMPACT / "BENCHMARK_IMPACT_LABEL_SOURCE_CHOICE_CLOSEOUT.md").read_text(
+        encoding="utf-8"
+    )
+    assert "does not claim a full-denominator ML model leaderboard" in closeout
+    assert "source-label transfer limits" in closeout
 
 
 def test_minimal_discordance_probe_passes_launch_signal() -> None:
