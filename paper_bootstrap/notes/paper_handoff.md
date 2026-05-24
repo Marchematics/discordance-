@@ -14,7 +14,7 @@ Latest pushed commit at bootstrap time:
 
 1. `paper-plan`: build the manuscript outline and figure plan.
 2. `paper-figure`: generate source-data-driven figures from milestone CSVs.
-3. `paper-write`: draft `output/doc/main.tex` section by section.
+3. `paper-write`: draft `paper_bootstrap/output/doc/main.tex` section by section.
 4. `paper-claim-audit`: verify every numeric sentence before polishing.
 5. `citation-audit`: verify bibliography and citation contexts.
 6. `paper-compile`: compile once LaTeX exists.

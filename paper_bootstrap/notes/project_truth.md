@@ -5,10 +5,10 @@
 No active manuscript file exists yet. The intended manuscript source of truth is:
 
 ```text
-output/doc/main.tex
+paper_bootstrap/output/doc/main.tex
 ```
 
-Do not draft paper prose directly from memory. Draft from the evidence blocks and claim boundaries listed in `notes/result_summary.md` and `notes/paper_handoff.md`.
+Do not draft paper prose directly from memory. Draft from the evidence blocks and claim boundaries listed in `paper_bootstrap/notes/result_summary.md` and `paper_bootstrap/notes/paper_handoff.md`.
 
 ## Dominant Contribution Type
 
